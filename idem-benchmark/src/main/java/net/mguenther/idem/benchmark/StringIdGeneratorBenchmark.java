@@ -1,10 +1,9 @@
 package net.mguenther.idem.benchmark;
 
+import net.mguenther.idem.generator.Flake128Generator;
 import net.mguenther.idem.encoder.Base62Encoder;
 import net.mguenther.idem.provider.LinearTimeProvider;
-import net.mguenther.idem.provider.NetworkInterfaceWorkerIdProvider;
-import net.mguenther.idem.provider.SynchronizedSequenceProvider;
-import net.mguenther.idem.StringIdGenerator;
+import net.mguenther.idem.provider.MacAddressWorkerIdProvider;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.GenerateMicroBenchmark;
 import org.openjdk.jmh.annotations.Mode;
@@ -19,13 +18,12 @@ import java.util.concurrent.TimeUnit;
 @State
 public class StringIdGeneratorBenchmark {
 
-    private final StringIdGenerator idGenerator;
+    private final Flake128Generator idGenerator;
 
     public StringIdGeneratorBenchmark() {
-        this.idGenerator = new StringIdGenerator(
+        this.idGenerator = new Flake128Generator(
                 new LinearTimeProvider(),
-                new NetworkInterfaceWorkerIdProvider(),
-                new SynchronizedSequenceProvider(),
+                new MacAddressWorkerIdProvider(),
                 new Base62Encoder());
     }
 

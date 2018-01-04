@@ -13,11 +13,11 @@ import java.util.Optional;
 /**
  * @author Markus Günther (markus.guenther@gmail.com)
  */
-public class NetworkInterfaceWorkerIdProvider implements WorkerIdProvider {
+public class MacAddressWorkerIdProvider implements WorkerIdProvider {
 
     private byte[] workerId;
 
-    public NetworkInterfaceWorkerIdProvider() {
+    public MacAddressWorkerIdProvider() {
         try {
             workerId = workerId();
         } catch (NoSuchAlgorithmException | SocketException e) {

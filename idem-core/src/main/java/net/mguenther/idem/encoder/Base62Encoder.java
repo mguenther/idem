@@ -1,5 +1,7 @@
 package net.mguenther.idem.encoder;
 
+import net.mguenther.idem.Encoder;
+
 import java.nio.ByteBuffer;
 
 /**
