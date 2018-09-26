@@ -30,11 +30,11 @@ import java.nio.ByteBuffer;
  */
 abstract class Flake64<T> implements IdGenerator<T> {
 
-    private final static long TIMESTAMP_LOWER_BITS = 0x3FFFFFFFFFFL;
+    final static long TIMESTAMP_LOWER_BITS = 0x1FFFFFFFFFFL;
 
-    private final static long WORKER_ID_LOWER_BITS = 0x3FFL;
+    final static long WORKER_ID_LOWER_BITS = 0x3FFL;
 
-    private static final long SEQUENCE_LOWER_BITS = 0xFFFL;
+    static final long SEQUENCE_LOWER_BITS = 0xFFFL;
 
     private final Sequence sequence;
 
@@ -52,10 +52,11 @@ abstract class Flake64<T> implements IdGenerator<T> {
     Buffer toByteBuffer(final SequenceNumber sequenceNumber) {
         final long timestamp = sequenceNumber.getTimestamp();
         final byte[] seqNoBytes = sequenceNumber.getSequenceNumber();
+
         final long id =
                 (timestamp & TIMESTAMP_LOWER_BITS) << 22 |
-                        (ByteBuffer.wrap(workerId).getInt() & WORKER_ID_LOWER_BITS) << 12 |
-                        ByteBuffer.wrap(seqNoBytes).getShort() & SEQUENCE_LOWER_BITS;
+                (ByteBuffer.wrap(workerId).getInt() & WORKER_ID_LOWER_BITS) << 12 |
+                (ByteBuffer.wrap(seqNoBytes).getShort() & SEQUENCE_LOWER_BITS);
         return ByteBuffer.allocate(8).putLong(id).clear();
     }
 
@@ -63,3 +64,4 @@ abstract class Flake64<T> implements IdGenerator<T> {
         return sequence;
     }
 }
+

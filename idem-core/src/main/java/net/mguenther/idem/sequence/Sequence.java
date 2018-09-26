@@ -58,21 +58,36 @@ public final class Sequence {
     private long updateCounter() {
         long currentTick = timeProvider.getTimestamp();
         if (tick < currentTick) {
+            // latest tick is N millis in the past, so we reset
+            // the state for *this* tick (time slot)
             this.tick = currentTick;
             this.count = 0;
         } else if (tick == currentTick) {
             if (isSequenceNumberPoolExhausted()) {
+                // counters for *this* tick are exhausted, so we
+                // wait for the next tick and reset the state
+                // for the next tick (time slot)
                 currentTick = waitForNextTick(currentTick);
+                this.tick = currentTick;
+                this.count = 0;
+            } else {
+                // this is the regular update of the counter if we
+                // are still within the same tick (time slot)
+                this.count++;
             }
-            this.count++;
         } else {
+            // the clock has been adjusted (NTP does that) so that
+            // time appears to flow backwards. we cannot reliably
+            // generate new sequence numbers and signal to the caller
+            // that he has to wait for a given period of time until
+            // new sequence numbers can be generated
             throw new BackwardsClockDriftException(currentTick, tick);
         }
         return currentTick;
     }
 
     private boolean isSequenceNumberPoolExhausted() {
-        return count == maxPoolNumbersPerTick;
+        return count == maxPoolNumbersPerTick - 1; // bits are 0-based, hence sequence numbers must be in range [0, maxPoolNumbersPerTick)
     }
 
     private long waitForNextTick(final long initialCurrentTime) {
@@ -81,8 +96,9 @@ public final class Sequence {
         while (updatedTick <= tick) {
             if (wait >= maxWaitTime) throw new OutOfSequenceNumbersException(initialCurrentTime, maxWaitTime);
             delay();
-            updatedTick = timeProvider.getTimestamp();
-            wait++;
+            long nextTick = timeProvider.getTimestamp();
+            wait += (nextTick - updatedTick);
+            updatedTick = nextTick;
         }
         return updatedTick;
     }
