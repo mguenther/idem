@@ -1,10 +1,7 @@
-package net.mguenther.idem;
+package net.mguenther.idem.sequence;
 
 import java.util.Arrays;
 
-/**
- * @author Markus Günther (markus.guenther@gmail.com)
- */
 public class SequenceNumber {
 
     private final long timestamp;

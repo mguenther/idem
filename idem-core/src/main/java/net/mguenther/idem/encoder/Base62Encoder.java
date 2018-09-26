@@ -1,7 +1,5 @@
 package net.mguenther.idem.encoder;
 
-import net.mguenther.idem.Encoder;
-
 import java.nio.ByteBuffer;
 
 /**
@@ -16,8 +14,6 @@ import java.nio.ByteBuffer;
  * of the given data.
  *
  * This implementation is Thread-safe, since it does not hold any shared mutable state.
- *
- * @author Markus Günther (markus.guenther@gmail.com)
  */
 public class Base62Encoder implements Encoder<ByteBuffer, String> {
 
@@ -56,8 +52,8 @@ public class Base62Encoder implements Encoder<ByteBuffer, String> {
      *
      * @param unencodedData
      *      {@code ByteBuffer} which holds the data that ought to be encoded
-     * @return {
-     *      @code String} in Base62-compliant representation using {@code alphabet}
+     * @return
+     *      {@code String} in Base62-compliant representation using {@code alphabet}
      */
     @Override
     public String encode(final ByteBuffer unencodedData) {

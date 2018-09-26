@@ -1,4 +1,4 @@
-package net.mguenther.idem;
+package net.mguenther.idem.sequence;
 
 import java.util.Locale;
 

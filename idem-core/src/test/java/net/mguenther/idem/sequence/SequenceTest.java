@@ -1,5 +1,6 @@
-package net.mguenther.idem;
+package net.mguenther.idem.sequence;
 
+import net.mguenther.idem.provider.TimeProvider;
 import org.junit.Test;
 
 import java.util.List;
@@ -8,21 +9,18 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static net.mguenther.idem.SequenceProviderConfig.sequenceProviderConfig;
-import static net.mguenther.idem.SequenceProviderConfig.useDefaults;
+import static net.mguenther.idem.sequence.SequenceConfig.sequenceProviderConfig;
+import static net.mguenther.idem.sequence.SequenceConfig.useDefaults;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
-/**
- * @author Markus Günther (markus.guenther@gmail.com)
- */
-public class SequenceProviderTest {
+public class SequenceTest {
 
     @Test
     public void nextSequenceNumberShouldIncreaseSequenceNumberLinearly() {
 
-        final SequenceProvider provider = new SequenceProvider(useDefaults(65536));
+        final Sequence provider = new Sequence(useDefaults(65536));
         final Map<Long, List<SequenceNumber>> groupedByTick = Stream.iterate(0, i -> i + 1)
                 .limit(100)
                 .map(i -> provider.nextSequenceNumber())
@@ -44,11 +42,12 @@ public class SequenceProviderTest {
     @Test(expected = OutOfSequenceNumbersException.class)
     public void nextSequenceNumberShouldThrowOutOfSequenceNumbersExceptionIfPoolIsExhausted() {
 
-        final SequenceProviderConfig config = sequenceProviderConfig(1)
+        final SequenceConfig config = sequenceProviderConfig(1)
                 .withMaxWaitTime(0, TimeUnit.MILLISECONDS)
                 .build();
-        final SequenceProvider provider = new SequenceProvider(config);
+        final Sequence provider = new Sequence(config);
 
+        provider.nextSequenceNumber();
         provider.nextSequenceNumber();
         provider.nextSequenceNumber();
         provider.nextSequenceNumber();
@@ -57,10 +56,10 @@ public class SequenceProviderTest {
     @Test(expected = BackwardsClockDriftException.class)
     public void nextSequenceNumberShouldThrowBackwardsClockDriftExceptionIfDriftIsDetected() {
 
-        final SequenceProviderConfig config = SequenceProviderConfig.sequenceProviderConfig(65536)
+        final SequenceConfig config = SequenceConfig.sequenceProviderConfig(65536)
                 .withTimeProvider(new DriftingTimeProvider())
                 .build();
-        final SequenceProvider provider = new SequenceProvider(config);
+        final Sequence provider = new Sequence(config);
 
         provider.nextSequenceNumber();
         provider.nextSequenceNumber();
@@ -68,8 +67,8 @@ public class SequenceProviderTest {
 
     private byte[] toByteArray(final int expectedSequenceNumber) {
         final byte[] bytes = new byte[2];
-        bytes[0] = (byte) (expectedSequenceNumber & 0xFF);
-        bytes[1] = (byte) ((expectedSequenceNumber>> 8) & 0xFF);
+        bytes[1] = (byte) (expectedSequenceNumber & 0xFF);
+        bytes[0] = (byte) ((expectedSequenceNumber>> 8) & 0xFF);
         return bytes;
     }
 

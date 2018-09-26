@@ -1,7 +1,7 @@
 package net.mguenther.idem.benchmark;
 
-import net.mguenther.idem.generator.Flake128Generator;
 import net.mguenther.idem.encoder.Base62Encoder;
+import net.mguenther.idem.flake.Flake128S;
 import net.mguenther.idem.provider.LinearTimeProvider;
 import net.mguenther.idem.provider.MacAddressWorkerIdProvider;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -12,25 +12,22 @@ import org.openjdk.jmh.annotations.State;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Markus Günther (markus.guenther@gmail.com)
- */
 @State
-public class StringIdGeneratorBenchmark {
+public class Flake128SBenchmark {
 
-    private final Flake128Generator idGenerator;
+    private final Flake128S flake;
 
-    public StringIdGeneratorBenchmark() {
-        this.idGenerator = new Flake128Generator(
+    public Flake128SBenchmark() {
+        this.flake = new Flake128S(
                 new LinearTimeProvider(),
                 new MacAddressWorkerIdProvider(),
                 new Base62Encoder());
     }
 
     @GenerateMicroBenchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @BenchmarkMode(Mode.Throughput)
+    @OutputTimeUnit(TimeUnit.SECONDS)
     public void generateId() {
-        idGenerator.getId();
+        flake.nextId();
     }
 }

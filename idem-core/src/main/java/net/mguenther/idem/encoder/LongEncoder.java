@@ -1,13 +1,7 @@
 package net.mguenther.idem.encoder;
 
-import net.mguenther.idem.Encoder;
-import net.mguenther.idem.EncoderException;
-
 import java.nio.ByteBuffer;
 
-/**
- * @author Markus Günther (markus.guenther@gmail.com)
- */
 public class LongEncoder implements Encoder<ByteBuffer, Long> {
 
     @Override

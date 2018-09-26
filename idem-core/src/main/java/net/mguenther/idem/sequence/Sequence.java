@@ -1,22 +1,23 @@
-package net.mguenther.idem;
+package net.mguenther.idem.sequence;
+
+import net.mguenther.idem.Wait;
+import net.mguenther.idem.provider.TimeProvider;
 
 /**
- * {@code SequenceProvider} implements a mechanism that generates unique sequence numbers for a
+ * {@code Sequence} implements a mechanism that generates unique sequence numbers for a
  * dedicated time slot (aka tick), where each tick represents a millisecond since the Unix epoch.
- * {@code SequenceProvider} guarantees that it only hands out sequence number that are unique
+ * {@code Sequence} guarantees that it only hands out sequence number that are unique
  * within its own context.
  *
- * This means, as idem is coordination-free, be sure to share the {@code SequenceProvider} between
+ * This means, as idem is coordination-free, be sure to share the {@code Sequence} between
  * multiple {@code IdGenerator}s, otherwise you could potentially introduce duplicate numbers.
  *
  * In order to guarantee uniqueness of sequence numbers per worker ID (cf. {@code WorkerIdProvider}
- * you should instantiate {@code SequenceProvider} directly, but rather go through the
- * {@code SequenceProviderFactory}, which ensures that idem isolates multiple instances of
- * {@code SequenceProvider} based on the worker ID that the enclosing {@code IdGenerator} uses.
- *
- * @author Markus Günther (markus.guenther@gmail.com)
+ * you should instantiate {@code Sequence} directly, but rather go through the
+ * {@code SequenceFactory}, which ensures that idem isolates multiple instances of
+ * {@code Sequence} based on the worker ID that the enclosing {@code IdGenerator} uses.
  */
-public final class SequenceProvider {
+public final class Sequence {
 
     private final Object lock = new Object();
 
@@ -31,9 +32,9 @@ public final class SequenceProvider {
     private int count;
 
     /**
-     * !!! Do not use this constructor in client code. Use {@code SequenceProviderFactory} instead !!!
+     * !!! Do not use this constructor in client code. Use {@code SequenceFactory} instead !!!
      */
-    SequenceProvider(final SequenceProviderConfig config) {
+    Sequence(final SequenceConfig config) {
         this.timeProvider = config.getTimeProvider();
         this.maxPoolNumbersPerTick = config.getMaxPoolNumbersPerTick();
         this.maxWaitTime = config.getMaxWaitTimeInMillis();
@@ -88,7 +89,7 @@ public final class SequenceProvider {
 
     private void delay() {
         try {
-            Thread.sleep(1);
+            Wait.delay(1);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -97,8 +98,8 @@ public final class SequenceProvider {
 
     private byte[] sequenceToByteArray() {
         final byte[] bytes = new byte[2];
-        bytes[0] = (byte) (count & 0xFF);
-        bytes[1] = (byte) ((count >> 8) & 0xFF);
+        bytes[1] = (byte) (count & 0xFF);
+        bytes[0] = (byte) ((count >> 8) & 0xFF);
         return bytes;
     }
 }

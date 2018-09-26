@@ -1,4 +1,4 @@
-package net.mguenther.idem;
+package net.mguenther.idem.encoder;
 
 import net.mguenther.idem.encoder.Base62Encoder;
 import org.junit.Test;

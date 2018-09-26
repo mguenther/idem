@@ -1,11 +1,11 @@
-package net.mguenther.idem;
+package net.mguenther.idem.provider;
+
+import net.mguenther.idem.IdGenerator;
 
 /**
  * A {@code TimeProvider} implements a mechanism to get the current timestamp from the
  * machine on which the {@link IdGenerator} is running. {@code TimeProvider}s must be return
  * the time as a number of milliseconds that have elapsed from the Unix epoch.
- *
- * @author Markus Günther (markus.guenther@gmail.com)
  */
 public interface TimeProvider {
     /**

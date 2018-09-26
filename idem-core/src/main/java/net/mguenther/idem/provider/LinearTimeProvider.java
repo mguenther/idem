@@ -1,7 +1,5 @@
 package net.mguenther.idem.provider;
 
-import net.mguenther.idem.TimeProvider;
-
 import java.util.stream.Stream;
 
 /**

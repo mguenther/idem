@@ -1,5 +1,6 @@
-package net.mguenther.idem;
+package net.mguenther.idem.sequence;
 
+import net.mguenther.idem.provider.TimeProvider;
 import net.mguenther.idem.provider.LinearTimeProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -7,10 +8,7 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-/**
- * @author Markus Günther (markus.guenther@gmail.com)
- */
-public class SequenceProviderConfig {
+public class SequenceConfig {
 
     public static final int MINIMUM_POOL_SIZE = (int) Math.pow(2, 1);
 
@@ -42,8 +40,8 @@ public class SequenceProviderConfig {
             return this;
         }
 
-        public SequenceProviderConfig build() {
-            return new SequenceProviderConfig(this);
+        public SequenceConfig build() {
+            return new SequenceConfig(this);
         }
     }
 
@@ -53,7 +51,7 @@ public class SequenceProviderConfig {
 
     private final TimeProvider timeProvider;
 
-    private SequenceProviderConfig(final SequenceProviderConfigBuilder builder) {
+    private SequenceConfig(final SequenceProviderConfigBuilder builder) {
         this.maxPoolNumbersPerTick = builder.maxPoolNumbersPerTick;
         this.maxWaitTimeInMillis = builder.maxWaitTimeInMillis;
         this.timeProvider = builder.timeProvider;
@@ -75,7 +73,7 @@ public class SequenceProviderConfig {
         return new SequenceProviderConfigBuilder(maxPoolNumbersPerTick);
     }
 
-    public static SequenceProviderConfig useDefaults(final int maxPoolNumbersPerTick) {
+    public static SequenceConfig useDefaults(final int maxPoolNumbersPerTick) {
         return new SequenceProviderConfigBuilder(maxPoolNumbersPerTick).build();
     }
 }

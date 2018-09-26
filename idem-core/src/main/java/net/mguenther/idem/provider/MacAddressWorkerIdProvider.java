@@ -1,12 +1,9 @@
 package net.mguenther.idem.provider;
 
-import net.mguenther.idem.WorkerIdProvider;
-
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -43,7 +40,7 @@ public class MacAddressWorkerIdProvider implements WorkerIdProvider {
                 .map(Optional::get)
                 .forEach(messageDigest::update);
 
-        return Arrays.copyOf(messageDigest.digest(), 6);
+        return messageDigest.digest();
     }
 
     private Optional<byte[]> toHardwareAddress(final NetworkInterface networkInterface) {

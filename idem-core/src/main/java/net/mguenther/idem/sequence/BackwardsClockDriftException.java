@@ -1,10 +1,7 @@
-package net.mguenther.idem;
+package net.mguenther.idem.sequence;
 
 import java.util.Locale;
 
-/**
- * @author Markus Günther (markus.guenther@gmail.com)
- */
 public class BackwardsClockDriftException extends RuntimeException {
 
     private static final String ERROR_MESSAGE = "Detected a backwards clock drift. Requested sequence number for " +
