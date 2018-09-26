@@ -69,7 +69,7 @@ public class SequenceConfig {
         return timeProvider;
     }
 
-    public static SequenceProviderConfigBuilder sequenceProviderConfig(final int maxPoolNumbersPerTick) {
+    public static SequenceProviderConfigBuilder create(final int maxPoolNumbersPerTick) {
         return new SequenceProviderConfigBuilder(maxPoolNumbersPerTick);
     }
 

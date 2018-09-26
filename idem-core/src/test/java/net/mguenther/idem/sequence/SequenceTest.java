@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static net.mguenther.idem.sequence.SequenceConfig.sequenceProviderConfig;
+import static net.mguenther.idem.sequence.SequenceConfig.create;
 import static net.mguenther.idem.sequence.SequenceConfig.useDefaults;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
@@ -42,7 +42,7 @@ public class SequenceTest {
     @Test(expected = OutOfSequenceNumbersException.class)
     public void nextSequenceNumberShouldThrowOutOfSequenceNumbersExceptionIfPoolIsExhausted() {
 
-        final SequenceConfig config = sequenceProviderConfig(1)
+        final SequenceConfig config = create(1)
                 .withMaxWaitTime(0, TimeUnit.MILLISECONDS)
                 .build();
         final Sequence provider = new Sequence(config);
@@ -56,7 +56,7 @@ public class SequenceTest {
     @Test(expected = BackwardsClockDriftException.class)
     public void nextSequenceNumberShouldThrowBackwardsClockDriftExceptionIfDriftIsDetected() {
 
-        final SequenceConfig config = SequenceConfig.sequenceProviderConfig(65536)
+        final SequenceConfig config = SequenceConfig.create(65536)
                 .withTimeProvider(new DriftingTimeProvider())
                 .build();
         final Sequence provider = new Sequence(config);

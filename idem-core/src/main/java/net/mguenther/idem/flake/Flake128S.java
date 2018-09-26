@@ -13,7 +13,7 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import static net.mguenther.idem.sequence.SequenceConfig.sequenceProviderConfig;
+import static net.mguenther.idem.sequence.SequenceConfig.create;
 
 public class Flake128S implements IdGenerator<String> {
 
@@ -28,7 +28,7 @@ public class Flake128S implements IdGenerator<String> {
     public Flake128S(final TimeProvider timeProvider,
                      final WorkerIdProvider workerIdProvider,
                      final Encoder<ByteBuffer, String> encoder) {
-        final SequenceConfig config = sequenceProviderConfig(MAX_SEQUENCE_NUMBERS).withTimeProvider(timeProvider).build();
+        final SequenceConfig config = create(MAX_SEQUENCE_NUMBERS).withTimeProvider(timeProvider).build();
         this.encoder = encoder;
         this.workerId = Arrays.copyOf(workerIdProvider.getWorkerId(), 6);
         this.sequence = SequenceFactory.INSTANCE.getSequenceProvider(workerId, config);

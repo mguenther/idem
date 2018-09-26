@@ -42,7 +42,7 @@ abstract class Flake64<T> implements IdGenerator<T> {
 
     Flake64(final TimeProvider timeProvider,
             final WorkerIdProvider workerIdProvider) {
-        final SequenceConfig config = SequenceConfig.sequenceProviderConfig((int) Math.pow(2, 12))
+        final SequenceConfig config = SequenceConfig.create((int) Math.pow(2, 12))
                 .withTimeProvider(timeProvider)
                 .build();
         this.workerId = workerIdProvider.getWorkerId();
