@@ -53,7 +53,7 @@ abstract class Flake64<T> implements IdGenerator<T> {
         final long timestamp = sequenceNumber.getTimestamp();
         final byte[] seqNoBytes = sequenceNumber.getSequenceNumber();
         final long id =
-                (timestamp & TIMESTAMP_LOWER_BITS) << (64 - 41) |
+                (timestamp & TIMESTAMP_LOWER_BITS) << 22 |
                         (ByteBuffer.wrap(workerId).getInt() & WORKER_ID_LOWER_BITS) << 12 |
                         ByteBuffer.wrap(seqNoBytes).getShort() & SEQUENCE_LOWER_BITS;
         return ByteBuffer.allocate(8).putLong(id).clear();
