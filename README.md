@@ -47,7 +47,7 @@ Idem uses [JMH](http://openjdk.java.net/projects/code-tools/jmh/) to generate mi
 | `Flake128S`          | Throughput | 1       | 2.774.614 op / s|  5.874 op / s |
 | `java.util.UUID` (*) | Throughput | 1       | 1.512.316 op / s|  2.363 op / s |
 
-(*) This is simply a call of `UUID.randomUUID().toString()` which incorporates generation (cf. `randomUUID()`) and encoding (cf. `toString()`).
+(*) This is simply a call to `UUID.randomUUID().toString()` which incorporates generation (cf. `randomUUID()`) and encoding (cf. `toString()`).
 
 ## License
 
