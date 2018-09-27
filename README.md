@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mguenther/idem.svg?branch=master)](https://travis-ci.org/mguenther/idem.svg) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.mguenther.idem/idem-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.mguenther.idem/idem-core)
 
-This repository hosts *Idem*, a Java library that implements a *decentralized*, *k-ordered* approach to ID generation using *Flake IDs*. Idem comes with a couple of building blocks that are used to implement a variety of Flake IDs with differing characteristics. Currently, Idem realizes Flake-64, Flake-128 and Flake-160 IDs.
+This repository hosts *Idem*, a Java library that implements a *decentralized*, *k-ordered* approach to ID generation using *Flake IDs*. Idem comes with a couple of building blocks that are used to implement a variety of Flake IDs with differing characteristics. Currently, Idem realizes Flake-64 and Flake-128 IDs.
 
 ## Why should I bother?
 
