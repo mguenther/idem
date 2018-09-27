@@ -40,11 +40,14 @@ Long generatedId = flake64.nextId();
 
 Idem uses [JMH](http://openjdk.java.net/projects/code-tools/jmh/) to generate microbenchmarks that exercise the ID generation for the provided Flake IDs. All tests were conducted on a Dell XPS 15" with Intel Core i7-7700HQ CPU @ 2.80 GHz (8 cores). Test were executed with 20 warmup iterations (each one second) before 20 measurement iterations (each one second as well), all single-threaded.
 
-| Benchmark for | Mode       | Threads | Mean            | Mean Error    |
-| ------------- | ---------- | ------- | ----------------| ------------- |
-| `Flake64L`    | Throughput | 1       | 2.269.683 op / s| 16.148 op / s |
-| `Flake64S`    | Throughput | 1       | 2.322.619 op / s| 12.502 op / s |
-| `Flake128S`   | Throughput | 1       | 2.774.614 op / s| 5.874 op / s  |
+| Benchmark for        | Mode       | Threads | Mean            | Mean Error    |
+| -------------------- | ---------- | ------- | ----------------| ------------- |
+| `Flake64L`           | Throughput | 1       | 2.269.683 op / s| 16.148 op / s |
+| `Flake64S`           | Throughput | 1       | 2.322.619 op / s| 12.502 op / s |
+| `Flake128S`          | Throughput | 1       | 2.774.614 op / s|  5.874 op / s |
+| `java.util.UUID` (*) | Throughput | 1       | 1.512.316 op / s|  2.363 op / s |
+
+(*) This is simply a call of `UUID.randomUUID().toString()` which incorporates generation (cf. `randomUUID()`) and encoding (cf. `toString()`).
 
 ## License
 
