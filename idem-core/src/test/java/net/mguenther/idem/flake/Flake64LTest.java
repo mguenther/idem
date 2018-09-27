@@ -94,6 +94,6 @@ public class Flake64LTest {
         long timestampFromId2 = id2 >> 22;
         long timeBetween = timestampFromId2 - timestampFromId1;
 
-        assertTrue(timeBetween > 1_000L && timeBetween < 2_000L);
+        assertTrue(timeBetween > 900L && timeBetween < 1_800L);
     }
 }
