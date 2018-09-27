@@ -23,8 +23,8 @@ public class Flake64STest {
     @Test
     public void shouldIsolateProcessesProperlyByWorkerIds() throws InterruptedException {
 
-        Flake64Worker<String> worker1 = new Flake64Worker<>(new Flake64S(timeProvider, new StaticWorkerIdProvider("A"), new Base62Encoder()));
-        Flake64Worker<String> worker2 = new Flake64Worker<>(new Flake64S(timeProvider, new StaticWorkerIdProvider("B"), new Base62Encoder()));
+        IdGeneratorWorker<String> worker1 = new IdGeneratorWorker<>(new Flake64S(timeProvider, new StaticWorkerIdProvider("A"), new Base62Encoder()));
+        IdGeneratorWorker<String> worker2 = new IdGeneratorWorker<>(new Flake64S(timeProvider, new StaticWorkerIdProvider("B"), new Base62Encoder()));
 
         Thread workerThread1 = new Thread(worker1);
         Thread workerThread2 = new Thread(worker2);

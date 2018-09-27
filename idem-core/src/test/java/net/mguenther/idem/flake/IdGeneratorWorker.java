@@ -1,25 +1,27 @@
 package net.mguenther.idem.flake;
 
+import net.mguenther.idem.IdGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Flake64Worker<T> implements Runnable {
+public class IdGeneratorWorker<T> implements Runnable {
 
-    private final Flake64<T> flake;
+    private final IdGenerator<T> generator;
 
     private final List<T> generatedIds;
 
     private volatile boolean running = true;
 
-    public Flake64Worker(final Flake64<T> flake) {
-        this.flake = flake;
+    public IdGeneratorWorker(final IdGenerator<T> generator) {
+        this.generator = generator;
         this.generatedIds = new ArrayList<>();
     }
 
     @Override
     public void run() {
         while (running) {
-            generatedIds.add(flake.nextId());
+            generatedIds.add(generator.nextId());
         }
     }
 
