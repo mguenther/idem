@@ -1,6 +1,7 @@
 package net.mguenther.idem.flake;
 
 import net.mguenther.idem.IdGenerator;
+import net.mguenther.idem.encoder.Base62Encoder;
 import net.mguenther.idem.encoder.Encoder;
 import net.mguenther.idem.provider.TimeProvider;
 import net.mguenther.idem.provider.WorkerIdProvider;
@@ -24,6 +25,15 @@ public class Flake128S implements IdGenerator<String> {
     private final byte[] workerId;
 
     private final Sequence sequence;
+
+    /**
+     * Uses the default Base62-encoder for {@code String}-based target representations that
+     * comes with idem.
+     */
+    public Flake128S(final TimeProvider timeProvider,
+                     final WorkerIdProvider workerIdProvider) {
+        this(timeProvider, workerIdProvider, new Base62Encoder());
+    }
 
     public Flake128S(final TimeProvider timeProvider,
                      final WorkerIdProvider workerIdProvider,

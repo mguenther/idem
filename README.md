@@ -32,8 +32,7 @@ Using the individual Flake ID generators is quite easy. Have a look at the follo
 ```java
 Flake64L flake64 = new Flake64L(
         new LinearTimeProvider(),
-        new StaticWorkerIdProvider("your-application-process"),
-        new LongEncoder());
+        new StaticWorkerIdProvider("your-application-process"));
 Long generatedId = flake64.nextId();
 ```
 

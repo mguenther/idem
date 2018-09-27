@@ -1,6 +1,7 @@
 package net.mguenther.idem.flake;
 
 import net.mguenther.idem.encoder.Encoder;
+import net.mguenther.idem.encoder.LongEncoder;
 import net.mguenther.idem.provider.TimeProvider;
 import net.mguenther.idem.provider.WorkerIdProvider;
 import net.mguenther.idem.sequence.SequenceNumber;
@@ -16,6 +17,15 @@ import java.nio.ByteBuffer;
 public class Flake64L extends Flake64<Long>{
 
     private final Encoder<ByteBuffer, Long> encoder;
+
+    /**
+     * Uses the default encoder for {@code Long}-based target representations that
+     * comes with idem.
+     */
+    public Flake64L(final TimeProvider timeProvider,
+                    final WorkerIdProvider workerIdProvider) {
+        this(timeProvider, workerIdProvider, new LongEncoder());
+    }
 
     public Flake64L(final TimeProvider timeProvider,
                     final WorkerIdProvider workerIdProvider,
