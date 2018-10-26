@@ -8,11 +8,11 @@
     <parent>
         <groupId>net.mguenther.idem</groupId>
         <artifactId>idem-parent</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0</version>
     </parent>
 
     <artifactId>idem-core</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>[Idem] Core Generators and Encoders</name>
     <url>https://github.com/mguenther/idem</url>
 
