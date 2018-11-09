@@ -1,24 +1,16 @@
 package net.mguenther.idem.sequence;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import java.util.Arrays;
 
+@Getter
+@RequiredArgsConstructor
 public class SequenceNumber {
 
     private final long timestamp;
     private final byte[] sequenceNumber;
-
-    public SequenceNumber(final long timestamp, final byte[] sequenceNumber) {
-        this.timestamp = timestamp;
-        this.sequenceNumber = sequenceNumber;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public byte[] getSequenceNumber() {
-        return sequenceNumber;
-    }
 
     @Override
     public String toString() {

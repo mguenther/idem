@@ -30,9 +30,9 @@ import java.nio.ByteBuffer;
  */
 abstract class Flake64<T> implements IdGenerator<T> {
 
-    final static long TIMESTAMP_LOWER_BITS = 0x1FFFFFFFFFFL;
+    private static final long WORKER_ID_LOWER_BITS = 0x3FFL;
 
-    final static long WORKER_ID_LOWER_BITS = 0x3FFL;
+    static final long TIMESTAMP_LOWER_BITS = 0x1FFFFFFFFFFL;
 
     static final long SEQUENCE_LOWER_BITS = 0xFFFL;
 

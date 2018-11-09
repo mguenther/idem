@@ -1,5 +1,6 @@
 package net.mguenther.idem.sequence;
 
+import lombok.Getter;
 import net.mguenther.idem.provider.TimeProvider;
 import net.mguenther.idem.provider.LinearTimeProvider;
 
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+@Getter
 public class SequenceConfig {
 
     public static final int MINIMUM_POOL_SIZE = (int) Math.pow(2, 1);
@@ -55,18 +57,6 @@ public class SequenceConfig {
         this.maxPoolNumbersPerTick = builder.maxPoolNumbersPerTick;
         this.maxWaitTimeInMillis = builder.maxWaitTimeInMillis;
         this.timeProvider = builder.timeProvider;
-    }
-
-    public int getMaxPoolNumbersPerTick() {
-        return maxPoolNumbersPerTick;
-    }
-
-    public int getMaxWaitTimeInMillis() {
-        return maxWaitTimeInMillis;
-    }
-
-    public TimeProvider getTimeProvider() {
-        return timeProvider;
     }
 
     public static SequenceProviderConfigBuilder create(final int maxPoolNumbersPerTick) {

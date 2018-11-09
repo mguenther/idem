@@ -1,7 +1,11 @@
 package net.mguenther.idem;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.concurrent.TimeUnit;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Wait {
 
     /**
