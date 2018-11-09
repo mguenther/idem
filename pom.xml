@@ -57,6 +57,7 @@
         <jmh.version>0.1</jmh.version>
         <!-- Plugin versions -->
         <plugin.compiler.version>3.5</plugin.compiler.version>
+        <plugin.surefire.version>2.22.1</plugin.surefire.version>
     </properties>
 
     <modules>
@@ -73,6 +74,14 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${plugin.surefire.version}</version>
+                    <configuration>
+                        <useSystemClassLoader>false</useSystemClassLoader>
                     </configuration>
                 </plugin>
             </plugins>
