@@ -49,6 +49,8 @@ Idem uses [JMH](http://openjdk.java.net/projects/code-tools/jmh/) to generate mi
 
 (*) This is simply a call to `UUID.randomUUID().toString()` which incorporates generation (cf. `randomUUID()`) and encoding (cf. `toString()`).
 
+You can run the benchmarks for yourself of course. The module `idem-benchmark` contains all benchmarks that can be run by selecting the Maven profile `benchmark` when building the solution.
+
 ## License
 
 This work is released under the terms of the Apache 2.0 license.
